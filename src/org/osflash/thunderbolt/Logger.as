@@ -37,6 +37,8 @@ package org.osflash.thunderbolt
 		public static const ERROR: String = "error";
 		public static const LOG: String = "log";
 
+		public static const FIREBUG_METHODS: Array = [INFO, WARN, ERROR, LOG];
+
 		private static const GROUP_START: String = "group";
 		private static const GROUP_END: String = "groupEnd";
 		private static const MAX_DEPTH: int = 255;
@@ -172,18 +174,8 @@ package org.osflash.thunderbolt
 				// at first run check
 				// using browser or not and check if firebug is enabled
 				if (_firstRun)
-				{					
-					var isBrowser: Boolean = ( Capabilities.playerType == "ActiveX" || Capabilities.playerType == "PlugIn" );
-					
-					trace ("isBrowser " + isBrowser);
-										
-					if ( isBrowser && ExternalInterface.available )
-					{
-						// check if firebug installed and enabled
-						if ( ExternalInterface.call( "function(){ return typeof window.console == 'object' && typeof console.firebug == 'string'}" ) )						
-							_firebug = true;
-					}
-					
+				{
+					_firebug = isFireBugAvailable;
 					_firstRun = false;
 				}
 				
@@ -222,7 +214,27 @@ package org.osflash.thunderbolt
 			}
 	 	
 		}
-				
+
+		private static function get isFireBugAvailable():Boolean
+		{
+			var isBrowser: Boolean = ( Capabilities.playerType == "ActiveX" || Capabilities.playerType == "PlugIn" );
+
+			if ( isBrowser && ExternalInterface.available )
+			{
+				// check if firebug installed and enabled
+				var requiredMethodsCheck:String = "";
+				for each (var method:String in FIREBUG_METHODS) {
+					// Most browsers report typeof function as 'function'
+					// Internet Explorer reports typeof function as 'object'
+					requiredMethodsCheck += " && (typeof console." + method + " == 'function' || typeof console." + method + " == 'object') "
+				}
+				if ( ExternalInterface.call( "function(){ return typeof window.console == 'object' " + requiredMethodsCheck + "}" ) )
+					return true;
+			}
+
+			return false;
+		}
+
 		/**
 		 * Logs nested instances and properties
 		 * 
