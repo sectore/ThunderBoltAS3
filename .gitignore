@@ -1,0 +1,13 @@
+bin-debug/**
+
+adt.txt
+
+*.actionScriptProperties
+*.flexLibProperties
+*.flexProperties
+*.project
+*.fxpProperties
+.settings/*
+
+.DS_Store
+Thumbs.db

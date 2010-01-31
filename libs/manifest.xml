@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	
+	
+	Compile a swc-component of ThunderBolt AS3 using compc on OS X 
+	@author:	Jens Krause [www.websector.de]
+	@date: 		10/14/07
+	
+	
+	- First of all: The compc compiler has to be in your system path. If not, add it to the PATH environment variable. For more information about PATH environment variables on OS X check: http://www.tech-recipes.com/rx/2621/os_x_change_path_environment_variable
+	
+	- Create a new folder anywhere on your machine
+	- Copy the ThunderBolt core classes located in {svnFolder}/trunk/as3/source/ to your this folder
+	- Open Terminal and go to the folder as well typing cd /your/folder 
+	- Compile the SWCs using compc adding the following parameters
+	
+	*** For a ThunderBoltAS3 Flex component ***
+	compc -source-path+=. 
+	-output ThunderBoltAS3_Flex.swc 
+	-namespace http://www.osflash.org/thunderbolt manifest.xml 
+	-include-namespaces http://www.osflash.org/thunderbolt
+	
+	// Flex
+	// compc -source-path+=../source -output ThunderBoltAS3_Flex_v2.2.swc -namespace http://www.osflash.org/thunderbolt manifest.xml -include-namespaces http://www.osflash.org/thunderbolt
+	
+	// Gumbo 
+	//compc -source-path+=../source -output ThunderBoltAS3_Gumbo_v2.2.swc -namespace http://www.osflash.org/thunderbolt manifest.xml -include-namespaces http://www.osflash.org/thunderbolt
+	
+	// Flash
+	// compc -source-path+=../source -output ThunderBoltAS3_Flash_v2.2.swc -namespace http://www.osflash.org/thunderbolt manifest.xml -include-namespaces http://www.osflash.org/thunderbolt
+	
+	
+	*** For a Flash ThunderBoltAS3 component ***
+	- comment out ThunderBoltTarget component in "manifest.xml"
+	- remove ThudnerBoltTarget.as
+
+	compc -source-path+=. 
+	-output ThunderBoltAS3_Flash.swc 
+	-namespace http://www.osflash.org/thunderbolt manifest.xml 
+	-include-namespaces http://www.osflash.org/thunderbolt	
+	
+	P.S. For more information about creating swc components check "Flex Quick Starts: Building custom components":
+	http://www.adobe.com/devnet/flex/quickstart/deploying_components/
+	
+	Have fun!
+
+ -->
+
+<componentPackage>
+    <component 
+    	id="Logger" 
+    	class="org.osflash.thunderbolt.Logger"
+    />
+
+    <component 
+    	id="ThunderBoltTarget" 
+    	class="org.osflash.thunderbolt.ThunderBoltTarget"
+    />
+</componentPackage>
