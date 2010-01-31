@@ -1,0 +1,64 @@
+/**
+* Logging Flex, AIR or Flash projects with Firebug using ThunderBolt AS3 and its Console
+* 
+* @author	Jens Krause [www.websector.de]
+* @see		http://www.websector.de/blog/category/thunderbolt/
+* @see		http://code.google.com/p/flash-thunderbolt/
+* @source	http://flash-thunderbolt.googlecode.com/svn/trunk/as3/
+*
+*/
+
+
+
+--------------------------------
+ HISTORY
+--------------------------------
+
+Version	2.2 (03/08/09)
+--------------------------------
+- Logging of package names + class names + code line numbers (Flash Debug Player required)
+- ThunderBoltTarget improved for using Flex 3 Logging API
+- SWC for Flex 4 (Gumbo) updated
+- Console updated using an Thawte certificate sponsored by Adobe
+- bug fixed "Command + Q not working in OS X" -> http://code.google.com/p/flash-thunderbolt/issues/detail?id=10
+
+
+Version	2.0 (08/03/08)
+--------------------------------
+- Firefox 3 / Firebug 1.02b supported 
+- ThunderBolt AS3 Console based on AIR added
+- All AS3 examples updated
+
+- bug fixed "Issue 5: Logger doesn't work using Firefox 3 and Firebug 1.2.0b6" -> http://code.google.com/p/flash-thunderbolt/issues/detail?id=5
+- bug fixed "Issue 6:  	 Unwanted playing of videos in console" -> http://code.google.com/p/flash-thunderbolt/issues/detail?id=6
+
+
+Version	1.0 (10/14/07)
+--------------------------------
+- memory snapshot in use by Flash Player added ->  calling Logger.info(Logger.memorySnapshot());
+- stop logging flag added -> calling Logger.hide = false; or calling Logger.hide = true; 
+- information about() added -> calling Logger.about();
+- new AS3 examples using Flex and Flash added
+
+
+Version	0.9.3 (08/28/07)
+--------------------------------
+- double getHours() entry within getCurrentTime() method removed
+- Adding two swc components called "ThunderBoltAS3_Flex.swc" and "ThunderBoltAS3_Flash.swc" as library files
+- Adding manifest xml for creating swc components using Flex Builder
+
+Version	0.9.2 (07/21/07)
+--------------------------------
+- stricter determination for logging using AS3 or Flex projects
+- Adding "ThunderBoltAS3.swc" as library file (Flex Builder -> Your Project -> Properties -> Flex Build Path -> Library Path -> Add SWC)
+
+Version	0.9.1 (06/27/07)
+--------------------------------
+- Accessing private properties as well - thx Rob Herman [http://www.toolsbydesign.com] ;-)
+- Some improvements for a better performance 
+
+
+Version	0.9.0 (06/19/07)
+--------------------------------
+- ThunderBoltTarget added as a custom target for the Flex 2 Logging Framework
+- Refactoring log levels - thx Brian Lai for his hint ;-)
