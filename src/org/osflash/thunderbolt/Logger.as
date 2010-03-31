@@ -100,9 +100,9 @@ package org.osflash.thunderbolt
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function info (msg: String = null, ...logObjects): void
+		public static function info (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.INFO, msg, logObjects );			
+			Logger.log( Logger.INFO, String(msg), logObjects );			
 		}
 		
 		/**
@@ -112,9 +112,9 @@ package org.osflash.thunderbolt
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function warn (msg: String = null, ...logObjects): void
+		public static function warn (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.WARN, msg, logObjects );			
+			Logger.log( Logger.WARN, String(msg), logObjects );			
 		}
 
 		/**
@@ -124,9 +124,9 @@ package org.osflash.thunderbolt
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function error (msg: String = null, ...logObjects): void
+		public static function error (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.ERROR, msg, logObjects );			
+			Logger.log( Logger.ERROR, String(msg), logObjects );			
 		}
 		
 		/**
@@ -136,9 +136,9 @@ package org.osflash.thunderbolt
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function debug (msg: String = null, ...logObjects): void
+		public static function debug (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.LOG, msg, logObjects );			
+			Logger.log( Logger.LOG, String(msg), logObjects );			
 		}		
 			
 		/**
@@ -167,7 +167,7 @@ package org.osflash.thunderbolt
  		 * @param 	msg			String			log message 
 		 * @param 	logObjects	Array			Array of log objects
 		 */			 
-		public static function log (level: String, msg: String = "", logObjects: Array = null): void
+		public static function log (level: String, msg: * = null, logObjects: Array = null): void
 		{
 			if(!_hide)
 			{
@@ -197,7 +197,7 @@ package org.osflash.thunderbolt
  
 			
 				// add message text to log message
-			 	logMsg += msg;
+				logMsg += String(msg);
 			 	
 			 	// send message	to the logging system
 			 	Logger.call( logMsg );
