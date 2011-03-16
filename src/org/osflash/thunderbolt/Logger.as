@@ -96,49 +96,49 @@ package org.osflash.thunderbolt
 		/**
 		 * Logs info messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
 		public static function info (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.INFO, String(msg), logObjects );			
+			Logger.log( Logger.INFO, msg, logObjects );			
 		}
 		
 		/**
 		 * Logs warn messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
 		public static function warn (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.WARN, String(msg), logObjects );			
+			Logger.log( Logger.WARN, msg, logObjects );			
 		}
 
 		/**
 		 * Logs error messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
 		public static function error (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.ERROR, String(msg), logObjects );			
+			Logger.log( Logger.ERROR, msg, logObjects );			
 		}
 		
 		/**
 		 * Logs debug messages messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
 		public static function debug (msg: * = null, ...logObjects): void
 		{
-			Logger.log( Logger.LOG, String(msg), logObjects );			
+			Logger.log( Logger.LOG, msg, logObjects );			
 		}		
 			
 		/**
@@ -197,7 +197,7 @@ package org.osflash.thunderbolt
  
 			
 				// add message text to log message
-				logMsg += String(msg);
+				logMsg += msg.toString();
 			 	
 			 	// send message	to the logging system
 			 	Logger.call( logMsg );
@@ -515,7 +515,17 @@ package org.osflash.thunderbolt
             
                        
             return message;	
-		}	    
+		}
+		
+		private static function get isReleaseBuild():Boolean
+		{
+			return new Error().getStackTrace().search(/:[0-9]+\]$/m) <= -1;
+		}
+		
+		public static function set hideIfReleaseBuild(value:Boolean):void
+		{
+			Logger.hide = isReleaseBuild;
+		}
 	}
 
 }
