@@ -517,14 +517,28 @@ package org.osflash.thunderbolt
             return message;	
 		}
 		
+		// this method is inspired by Michael VanDaniker's SWFCapabilities class
+		// http://michaelvandaniker.com/blog/2008/11/25/how-to-check-debug-swf/
 		private static function get isReleaseBuild():Boolean
 		{
-			return new Error().getStackTrace().search(/:[0-9]+\]$/m) <= -1;
+			try
+			{
+				throw new Error();
+			}
+			catch(e:Error)
+			{
+				var stackTrace:String = e.getStackTrace();
+				var isDebug:Boolean = (stackTrace != null && stackTrace.indexOf("[") != -1);
+				return !isDebug;
+			}
+			
+			// this value is never returned. it just stops the compiler from complaining
+			return false;
 		}
 		
 		public static function set hideIfReleaseBuild(value:Boolean):void
 		{
-			Logger.hide = isReleaseBuild;
+			Logger.hide = Logger.isReleaseBuild;
 		}
 	}
 
