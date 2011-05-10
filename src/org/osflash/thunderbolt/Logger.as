@@ -228,8 +228,15 @@ package org.osflash.thunderbolt
 					// Internet Explorer reports typeof function as 'object'
 					requiredMethodsCheck += " && (typeof console." + method + " == 'function' || typeof console." + method + " == 'object') "
 				}
-				if ( ExternalInterface.call( "function(){ return typeof window.console == 'object' " + requiredMethodsCheck + "}" ) )
-					return true;
+				try
+				{
+					if ( ExternalInterface.call( "function(){ return typeof window.console == 'object' " + requiredMethodsCheck + "}" ) )
+						return true;
+				}
+				catch (error:SecurityError)
+				{
+						return false;
+				}
 			}
 
 			return false;
