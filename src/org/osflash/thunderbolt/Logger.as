@@ -96,11 +96,11 @@ package org.osflash.thunderbolt
 		/**
 		 * Logs info messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function info (msg: String = null, ...logObjects): void
+		public static function info (msg: * = null, ...logObjects): void
 		{
 			Logger.log( Logger.INFO, msg, logObjects );			
 		}
@@ -108,11 +108,11 @@ package org.osflash.thunderbolt
 		/**
 		 * Logs warn messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function warn (msg: String = null, ...logObjects): void
+		public static function warn (msg: * = null, ...logObjects): void
 		{
 			Logger.log( Logger.WARN, msg, logObjects );			
 		}
@@ -120,11 +120,11 @@ package org.osflash.thunderbolt
 		/**
 		 * Logs error messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function error (msg: String = null, ...logObjects): void
+		public static function error (msg: * = null, ...logObjects): void
 		{
 			Logger.log( Logger.ERROR, msg, logObjects );			
 		}
@@ -132,11 +132,11 @@ package org.osflash.thunderbolt
 		/**
 		 * Logs debug messages messages including objects for calling Firebug
 		 * 
-		 * @param 	msg				String		log message 
+		 * @param 	msg				*			log message 
 		 * @param 	logObjects		Array		Array of log objects using rest parameter
 		 * 
 		 */		
-		public static function debug (msg: String = null, ...logObjects): void
+		public static function debug (msg: * = null, ...logObjects): void
 		{
 			Logger.log( Logger.LOG, msg, logObjects );			
 		}		
@@ -167,7 +167,7 @@ package org.osflash.thunderbolt
  		 * @param 	msg			String			log message 
 		 * @param 	logObjects	Array			Array of log objects
 		 */			 
-		public static function log (level: String, msg: String = "", logObjects: Array = null): void
+		public static function log (level: String, msg: * = null, logObjects: Array = null): void
 		{
 			if(!_hide)
 			{
@@ -197,7 +197,7 @@ package org.osflash.thunderbolt
  
 			
 				// add message text to log message
-			 	logMsg += msg;
+				logMsg += msg.toString();
 			 	
 			 	// send message	to the logging system
 			 	Logger.call( logMsg );
@@ -522,7 +522,31 @@ package org.osflash.thunderbolt
             
                        
             return message;	
-		}	    
+		}
+		
+		// this method is inspired by Michael VanDaniker's SWFCapabilities class
+		// http://michaelvandaniker.com/blog/2008/11/25/how-to-check-debug-swf/
+		private static function get isReleaseBuild():Boolean
+		{
+			try
+			{
+				throw new Error();
+			}
+			catch(e:Error)
+			{
+				var stackTrace:String = e.getStackTrace();
+				var isDebug:Boolean = (stackTrace != null && stackTrace.indexOf("[") != -1);
+				return !isDebug;
+			}
+			
+			// this value is never returned. it just stops the compiler from complaining
+			return false;
+		}
+		
+		public static function set hideIfReleaseBuild(value:Boolean):void
+		{
+			Logger.hide = Logger.isReleaseBuild;
+		}
 	}
 
 }
